@@ -13,27 +13,27 @@ return {
         -- use opts = {} for passing setup options
         -- this is equivalent to setup({}) function
     },
-    {
-        -- fuzzy模糊搜索
-        "ibhagwan/fzf-lua",
-        -- optional for icon support
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        -- or if using mini.icons/mini.nvim
-        -- dependencies = { "echasnovski/mini.icons" },
-        opts = {
-            winopts = {
-                preview = {
-                    layout = "vertical",    -- horizontal|vertical|flex
-                },
-            },
-            lsp = {
-                jump1 = false,  --结果只有一个时是否自动跳转
-                code_actions = {
-                    silent = true,  -- code_actions不再提示消息
-                }
-            }
-        }
-    },
+    --{
+    --    -- fuzzy模糊搜索
+    --    "ibhagwan/fzf-lua",
+    --    -- optional for icon support
+    --    dependencies = { "nvim-tree/nvim-web-devicons" },
+    --    -- or if using mini.icons/mini.nvim
+    --    -- dependencies = { "echasnovski/mini.icons" },
+    --    opts = {
+    --        winopts = {
+    --            preview = {
+    --                layout = "vertical",    -- horizontal|vertical|flex
+    --            },
+    --        },
+    --        lsp = {
+    --            jump1 = false,  --结果只有一个时是否自动跳转
+    --            code_actions = {
+    --                silent = true,  -- code_actions不再提示消息
+    --            }
+    --        }
+    --    }
+    --},
     {
         -- 查找替换
         "MagicDuck/grug-far.nvim",
@@ -63,30 +63,30 @@ return {
             require("gitsigns").setup(opts)
         end
     },
-    {
-        "sindrets/diffview.nvim",
-        --event = "LazyFile",
-        opts = {
-            view = {
-                -- Configure the layout and behavior of different types of views.
-                -- Available layouts:
-                --  'diff1_plain'
-                --    |'diff2_horizontal'
-                --    |'diff2_vertical'
-                --    |'diff3_horizontal'
-                --    |'diff3_vertical'
-                --    |'diff3_mixed'
-                --    |'diff4_mixed'
-                -- For more info, see |diffview-config-view.x.layout|.
-                merge_tool = {
-                    -- Config for conflicted files in diff views during a merge or rebase.
-                    layout = "diff3_mixed",
-                    disable_diagnostics = true,   -- Temporarily disable diagnostics for diff buffers while in the view.
-                    winbar_info = true,           -- See |diffview-config-view.x.winbar_info|
-                },
-            },
-        },
-    },
+    --{
+    --    "sindrets/diffview.nvim",
+    --    --event = "LazyFile",
+    --    opts = {
+    --        view = {
+    --            -- Configure the layout and behavior of different types of views.
+    --            -- Available layouts:
+    --            --  'diff1_plain'
+    --            --    |'diff2_horizontal'
+    --            --    |'diff2_vertical'
+    --            --    |'diff3_horizontal'
+    --            --    |'diff3_vertical'
+    --            --    |'diff3_mixed'
+    --            --    |'diff4_mixed'
+    --            -- For more info, see |diffview-config-view.x.layout|.
+    --            merge_tool = {
+    --                -- Config for conflicted files in diff views during a merge or rebase.
+    --                layout = "diff3_mixed",
+    --                disable_diagnostics = true,   -- Temporarily disable diagnostics for diff buffers while in the view.
+    --                winbar_info = true,           -- See |diffview-config-view.x.winbar_info|
+    --            },
+    --        },
+    --    },
+    --},
     --{
     --    "akinsho/toggleterm.nvim",
     --    version = "*",

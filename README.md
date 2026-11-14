@@ -1,50 +1,84 @@
-# config
-## 配置文件安装
-安装rcm：`https://github.com/thoughtbot/rcm.git`
-## 常用软件列表
-noto-cjk
-x11
-dwm
-picom
-rofi
-alacritty
-fcitx5
+# dotfiles
 
-lm_sensors
-s-tui
-dmidecode
-CPU-X
+| 目录/文件 | 用途 |
+|-----------|------|
+| `config/` | 应用配置，由 **rcm** 安装到 `~/.config` |
+| `myscripts/` | 自定义 bash 函数库 → 链到 `~/.local/myscripts` |
+| `tmux.conf` / `tmux-3.6.conf` | tmux |
+| `vimrc` / `vimrc_min` / `ideavimrc` | Vim / IdeaVim |
+| `xinitrc` / `Xresources` / `dwm/` | X11 / dwm |
 
-fzf
-LazyGit
+---
 
-tmux
+## 配置安装（rcm）
 
-remmina
-freerdp
+- 安装：[thoughtbot/rcm](https://github.com/thoughtbot/rcm)
+- `DOTFILES_DIRS` 指向 `~/dotfiles/config`（见 `config/tag-rcm/rcrc`）
+- 常用：`rcup` 安装 / 更新，`lsrc` 查看链接
 
-### PICOM
-透明组件
+---
 
-### alacritty
+## myscripts
 
-yml格式配置文件已不使用，新配置文件用alacritty.toml代替
-主题下载地址：
-[https://github.com/alacritty/alacritty-theme](https://github.com/alacritty/alacritty-theme)
-主题安装路径：
-`~/.config/alacritty/themes`
+源码：`~/dotfiles/myscripts/` → 符号链接到 `~/.local/myscripts/` → `.bashrc` source。  
+只定义函数（`myscript_*`）；可执行命令另放 `~/.local/bin`。
 
-### tmux
+**安装**
 
-配置文件：
->. `tmux.conf`：主配置文件，安装位置: `$HOME/.tmux.conf`
->. `tmux-3.6.conf`：3.6版本新增配置，安装位置: `$HOME/.tmux-3.6.conf`
+```bash
+mkdir -p ~/.local/myscripts
+ln -sfn ~/dotfiles/myscripts/*.sh ~/.local/myscripts/
+```
 
-## Linux环境变量配置说明
+**`.bashrc`**
 
-## Linux目录结构说明
+```bash
+myscripts_dir="$HOME/.local/myscripts"
+if [ -d "$myscripts_dir" ]; then
+  for f in "$myscripts_dir"/*.sh; do
+    [ -f "$f" ] || continue
+    . "$f"
+  done
+fi
+```
 
-## VIM配置说明
+| 文件 | 命令 |
+|------|------|
+| `proxy_tool.sh` | `myscript_proxy_on` / `off` / `show` / `gen_config` / `help` |
+| `git_info.sh` | `myscript_git_prompt`（PS1）、`myscript_git_check_repo` |
 
-## 常见问题解决思路
-ITE IT8712F
+代理配置：`~/.config/my_proxy_config.conf`（或 `MYSCRIPT_PROXY_CONFIG`）
+
+---
+
+## 常用软件
+
+| 软件 | 类型 | 简介 | 显示协议 |
+|------|------|------|----------|
+| noto-cjk | 字体 | Noto 中日韩字体 | — |
+| X11 | 显示服务 | X Window 显示服务器 | X11 |
+| dwm | GUI | 极简动态平铺窗口管理器 | X11 |
+| picom | GUI | X11 合成器（透明/阴影等） | X11 |
+| rofi | GUI | 应用启动器 / 窗口切换 | X11 |
+| alacritty | GUI | GPU 加速终端模拟器 | 两者 |
+| fcitx5 | GUI | 输入法框架 | 两者 |
+| lm_sensors | CLI | 读取硬件温度/电压等传感器 | — |
+| s-tui | TUI | 终端里看 CPU 温度与压力测试 | — |
+| dmidecode | CLI | 读取 DMI/SMBIOS 硬件信息 | — |
+| CPU-X | GUI | 类似 CPU-Z 的硬件信息查看 | 两者 |
+| fzf | TUI | 通用模糊查找 | — |
+| LazyGit | TUI | Git 终端 UI | — |
+| tmux | TUI | 终端复用器 | — |
+| remmina | GUI | 远程桌面客户端（RDP/VNC 等） | 两者 |
+| freerdp | CLI | RDP 客户端（`xfreerdp` / `wlfreerdp`） | 两者 |
+
+补充：
+
+- **alacritty**：用 `alacritty.toml`；主题 → `~/.config/alacritty/themes`（[alacritty-theme](https://github.com/alacritty/alacritty-theme)）
+- **tmux**：`tmux.conf` → `~/.tmux.conf`；`tmux-3.6.conf` → `~/.tmux-3.6.conf`（3.6+）
+
+---
+
+## 备忘
+
+- 传感器芯片：ITE IT8712F
