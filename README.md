@@ -3,7 +3,7 @@
 | 目录/文件 | 用途 |
 |-----------|------|
 | `config/` | 应用配置，由 **rcm** 安装到 `~/.config` |
-| `myscripts/` | 自定义 bash 函数库 → 链到 `~/.local/myscripts` |
+| `myscripts/` | 自定义 bash 函数库 → `~/.local/myscripts`（目录链接） |
 | `tmux.conf` / `tmux-3.6.conf` | tmux |
 | `vimrc` / `vimrc_min` / `ideavimrc` | Vim / IdeaVim |
 | `xinitrc` / `Xresources` / `dwm/` | X11 / dwm |
@@ -20,32 +20,44 @@
 
 ## myscripts
 
-源码：`~/dotfiles/myscripts/` → 符号链接到 `~/.local/myscripts/` → `.bashrc` source。  
+源码：`~/dotfiles/myscripts/` → `~/.local/myscripts`（目录符号链接）→ `.bashrc` source。  
 只定义函数（`myscript_*`）；可执行命令另放 `~/.local/bin`。
 
 **安装**
 
 ```bash
-mkdir -p ~/.local/myscripts
-ln -sfn ~/dotfiles/myscripts/*.sh ~/.local/myscripts/
+ln -sfn ~/dotfiles/myscripts ~/.local/myscripts
 ```
 
-**`.bashrc`**
+**`.bashrc`**（包进函数，`dir` / `f` / `skip` 均为 local，无残留）
 
 ```bash
-myscripts_dir="$HOME/.local/myscripts"
-if [ -d "$myscripts_dir" ]; then
-  for f in "$myscripts_dir"/*.sh; do
+myscript_load_all() {
+  local dir f base skip skip_list
+  # 跳过加载（空格或冒号分隔，.sh 可省略），例如：skip="path_cleanup git_info"
+  skip=""
+  dir="${HOME}/.local/myscripts"
+  [ -d "$dir" ] || return 0
+  skip_list=" ${skip//:/ } "
+  for f in "$dir"/*.sh; do
     [ -f "$f" ] || continue
+    base="${f##*/}"
+    base="${base%.sh}"
+    case "$skip_list" in
+      *" $base "*|*" $base.sh "*) continue ;;
+    esac
     . "$f"
   done
-fi
+}
+myscript_load_all
+unset -f myscript_load_all
 ```
 
 | 文件 | 命令 |
 |------|------|
 | `proxy_tool.sh` | `myscript_proxy_on` / `off` / `show` / `gen_config` / `help` |
 | `git_info.sh` | `myscript_git_prompt`（PS1）、`myscript_git_check_repo` |
+| `path_cleanup.sh` | `myscript_path_cleanup`（source 时自动跑一次） |
 
 代理配置：`~/.config/my_proxy_config.conf`（或 `MYSCRIPT_PROXY_CONFIG`）
 
