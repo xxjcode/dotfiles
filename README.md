@@ -4,7 +4,7 @@
 |-----------|------|
 | `config/` | 应用配置，由 **rcm** 安装到 `~/.config` |
 | `myscripts/` | 自定义 bash 函数库 → `~/.local/myscripts`（目录链接） |
-| `tmux.conf` / `tmux-3.6.conf` | tmux |
+| `tmux.conf` / `tmux-3.6.conf` / `tmux-3.8.conf` | tmux（按版本分流） |
 | `vimrc` / `vimrc_min` / `ideavimrc` | Vim / IdeaVim |
 | `xinitrc` / `Xresources` / `dwm/` | X11 / dwm |
 
@@ -87,7 +87,7 @@ unset -f myscript_load_all
 补充：
 
 - **alacritty**：用 `alacritty.toml`；主题 → `~/.config/alacritty/themes`（[alacritty-theme](https://github.com/alacritty/alacritty-theme)）
-- **tmux**：`tmux.conf` → `~/.tmux.conf`；`tmux-3.6.conf` → `~/.tmux-3.6.conf`（3.6+）
+- **tmux**：`tmux.conf` → `~/.tmux.conf`；`tmux-3.6.conf` → `~/.tmux-3.6.conf`（3.6+）；`tmux-3.8.conf` → `~/.tmux-3.8.conf`（3.8+）
 
 ---
 
